@@ -12,8 +12,8 @@
 
 ## TODO
 
-1. Code cleaning -- I commented out quite a lot of original code. 
+1. **Code cleaning** -- I commented out quite a lot of original code. 
 
-2. UI change -- There are still some UI elements that are for Video but not for Screenshot annotation (for example, `+1 sec` and `-1 sec`) when the Annotate button is first clicked. This can be easily fixed by changing the corresponding handlebars file. 
+2. **UI change** -- There are still some UI elements that are for Video but not for Screenshot annotation (for example, `+1 sec` and `-1 sec`) when the Annotate button is first clicked. This can be easily fixed by changing the corresponding handlebars file. 
 
-3. Bugs -- There are still some existing bugs caused by the difference between a screenshot and a video (for example, there's a bug when clicking the Cancel link after the comment box is shown, please check `cancelAddNew` function in `control.js`). To fix these bugs, please go to the javascript files and change the corresponding code to those that are more suitable for a screenshot (`js/lib/player_components.js` will be a good place to start). 
+3. **Bugs** -- There are still some existing bugs caused by the difference between a screenshot and a video (for example, there's a bug when clicking the Cancel link after the comment box is shown, please check `cancelAddNew` function in `control.js`). To fix these bugs, please go to the javascript files and change the corresponding code to those that are more suitable for a screenshot (`js/lib/player_components.js` will be a good place to start). 
