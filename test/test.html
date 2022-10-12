@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VideoJS Annotated Comments Test Page</title>
+    <link href="/video.js/dist/video-js.css" rel="stylesheet" />
+    <link href="assets/videojs_skin.css" rel="stylesheet" />
+    <link href="assets/page.css" rel="stylesheet" />
+    <link href="css/annotations.css" rel="stylesheet" />
+    <script>
+      function guid() {
+        function s4() {
+          return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+        }
+        return (
+          s4() +
+          s4() +
+          "-" +
+          s4() +
+          "-" +
+          s4() +
+          "-" +
+          s4() +
+          "-" +
+          s4() +
+          s4() +
+          s4()
+        );
+      }
+      var annotations = [
+      ];
+    </script>
+  </head>
+  <body>
+    <div id="video_wrap">
+      <!-- <div>
+        <button onclick="ADD()" style="margin-top:20px">+ ADD VIDEO</button>
+      </div> -->
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/video.js/dist/video.min.js"></script>
+    <script src="/videojs-annotation-comments.js"></script>
+    <script>
+      // window.VAC_DEBUG = true;
+
+      var videos = [],
+        playerOptions = { controlBar: { volumePanel: { inline: false } } },
+        pluginOptions = {
+          annotationsObjects: annotations,
+          bindArrowKeys: true,
+          meta: {
+            user_id: 2,
+            user_name: "John Smith"
+          },
+          showControls: true,
+          showCommentList: true,
+          showFullScreen: true,
+          startInAnnotationMode: false,
+          showMarkerShapeAndTooltips: true
+        };
+
+      function ADD() {
+        var id = new Date().getTime();
+
+        var html = '<div id="wrap-' + id + '" class="vwrap">';
+        html +=
+          '<video id="vid-' +
+          id +
+          '" class="video-js" controls preload="auto" width="720" height="405" data-setup="{}">';
+        html +=
+          '<source src="sample.mp4" type="video/mp4"></video>';
+        html +=
+          '<div><button onclick="REMOVE(' +
+          id +
+          ')">- REMOVE VIDEO</button></div>';
+        html += "</div>";
+
+        var $lastVid = $(".vwrap:last");
+        if ($lastVid.length) {
+          $lastVid.after(html);
+        } else {
+          $("#video_wrap").prepend(html);
+        }
+
+        var player = window.videojs("vid-" + id, playerOptions);
+
+        player.ready(function() {
+          var plugin = player.annotationComments(pluginOptions);
+
+          plugin.onReady(function() {
+            console.log("PLUGIN IS READY!", id);
+          });
+          player.muted(true);
+
+          videos.push({
+            id: id,
+            player: player,
+            plugin: plugin
+          });
+          console.log("::ADDING:: ", videos[videos.length - 1]);
+        });
+      }
+
+      function REMOVE(id) {
+        var video = videos.find(function(v) {
+          return v.id == id;
+        });
+        console.log("::REMOVING:: ", video);
+        video.plugin = video.plugin.dispose();
+        video.player.dispose();
+        $("#wrap-" + video.id).remove();
+      }
+
+      // Add initial video
+      // ADD();
+
+      //////////////////////
+
+      pluginOptions = {
+          annotationsObjects: annotations,
+          bindArrowKeys: true,
+          meta: {
+            user_id: 2,
+            user_name: "John Smith"
+          },
+          showControls: true,
+          showCommentList: true,
+          showFullScreen: true,
+          startInAnnotationMode: false,
+          showMarkerShapeAndTooltips: true
+        };
+        
+        // var a = window.AnnotationComments
+        var b = new window.AnnotationComments(pluginOptions)
+        
+    </script>
+    <br>
+    <div class="screenshot">
+      <div class="sac-cover">
+        <div class="sac-cover-canvas">
+          <img src="./assets/snapshot.png" width="800" height="500">
+        </div>
+      </div>
+      <img src="./assets/snapshot.png" width="800" height="500">
+    </div>
+    
+    <br>
+    <button class="sac-start"> Annotate </button>
+  </body>
+</html>
